@@ -5,16 +5,17 @@ const url = process.env.URL;
 
 const app = express();
 mongoose.connect(url);
-const con = mongoose.connection
+const con = mongoose.connection;
 
-con.on('open', () => {
-    console.log('connected...')
-})
-
+con.on("open", () => {
+  console.log("connected...");
+});
+const cors = require("cors");
 // router
 const employeeRouter = require("./routes/employeeRoutes");
 
 app.use(express.json());
+app.use(cors());
 
 // use router
 app.use("/api/v1/employee", employeeRouter);
