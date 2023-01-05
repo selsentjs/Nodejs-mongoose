@@ -12,7 +12,7 @@ const getAllEmployees = async (req, res) => {
 const getSingleEmployee = async (req, res) => {
   try {
     const { id: EmployeeID } = req.params;
-    const singleEmployee = await Client.findById({ _id: EmployeeID });
+    const singleEmployee = await Client.findOne({ _id: EmployeeID });
     if (!singleEmployee) {
       res.send("no employee with id");
     }
@@ -38,7 +38,7 @@ const createEmployee = async (req, res) => {
 const updateEmployee = async (req, res) => {
   try {
     const { id: EmployeeId } = req.params;
-    const employee = await Client.findById({ _id: EmployeeId });
+    const employee = await Client.findOneAndUpdate({ _id: EmployeeId });
     employee.name = req.body.name;
     employee.designation = req.body.designation;
 

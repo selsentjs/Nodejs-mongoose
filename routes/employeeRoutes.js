@@ -10,7 +10,7 @@ const {
 
 router.route("/").get(getAllEmployees);
 router.route("/:id").get(getSingleEmployee);
-router.route("/").post(createEmployee);
+router.route("/create").post(createEmployee);
 router.route("/:id").put(updateEmployee);
 router.route("/:id").delete(deleteEmployee);
 

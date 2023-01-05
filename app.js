@@ -1,22 +1,31 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const url = process.env.URL;
 
 const app = express();
+const cors = require("cors");
+
+// database
+const url = process.env.URL;
 mongoose.connect(url);
 const con = mongoose.connection;
 
 con.on("open", () => {
   console.log("connected...");
 });
-const cors = require("cors");
+
 // router
 const employeeRouter = require("./routes/employeeRoutes");
 
+// app.use
 app.use(express.json());
 app.use(cors());
 
+// get
+
+app.get("/", (req, res) => {
+  res.send("welcome");
+});
 // use router
 app.use("/api/v1/employee", employeeRouter);
 
