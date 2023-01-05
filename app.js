@@ -1,12 +1,25 @@
-require("dotenv").config()
+require("dotenv").config();
 const express = require("express");
+const mongoose = require("mongoose");
+const url = process.env.URL;
 
 const app = express();
+mongoose.connect(url);
+const con = mongoose.connection
 
-app.get("/", (req, res) => {
-  res.send("welcome to node js");
-});
+con.on('open', () => {
+    console.log('connected...')
+})
 
+// router
+const employeeRouter = require("./routes/employeeRoutes");
+
+app.use(express.json());
+
+// use router
+app.use("/api/v1/employee", employeeRouter);
+
+//port
 const port = process.env.PORT;
 
 app.listen(port, () => {
