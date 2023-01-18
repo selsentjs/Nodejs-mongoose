@@ -3,7 +3,7 @@ const Client = require("../models/employeeModel");
 const getAllEmployees = async (req, res) => {
   try {
     const ListEmployees = await Client.find();
-    res.status(200).json({ ListEmployees });
+    res.status(200).json( ListEmployees );
   } catch (err) {
     res.status(400).send(err);
   }
@@ -16,7 +16,7 @@ const getSingleEmployee = async (req, res) => {
     if (!singleEmployee) {
       res.send("no employee with id");
     }
-    res.status(200).json({ singleEmployee });
+    res.status(200).json( singleEmployee );
   } catch (err) {
     res.send(err);
   }
@@ -46,14 +46,25 @@ const updateEmployee = async (req, res) => {
     if (!employee) {
       res.send("no employee with id");
     }
-    res.status(200).json({ result });
+    res.status(200).json( result );
   } catch (err) {
     console.log(err);
   }
 };
 
 const deleteEmployee = async (req, res) => {
-  res.send("delete employee");
+  try{
+    const { id: EmployeeID } = req.params;
+    const employee = await Client.findOneAndDelete({ _id: EmployeeID });
+    if (!employee) {
+      res.send("no employee with id");
+    }
+    res.status(200).json(employee );
+  }
+  catch (err) {
+    console.log(err);
+  }
+ 
 };
 
 module.exports = {
