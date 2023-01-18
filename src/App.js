@@ -1,12 +1,10 @@
 import "./App.css";
-import Employee from "./components/Employee";
+import MainPathFile from './MongooseWithAPI/MainPathFile'
 
 function App() {
-  return (
-    <div className="App">
-      <Employee />
-    </div>
-  );
+  return <div className="App">
+    <MainPathFile />
+  </div>;
 }
 
 export default App;
