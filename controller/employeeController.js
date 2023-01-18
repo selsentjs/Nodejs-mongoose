@@ -3,7 +3,7 @@ const Client = require("../models/employeeModel");
 const getAllEmployees = async (req, res) => {
   try {
     const ListEmployees = await Client.find();
-    res.status(200).json( ListEmployees );
+    res.status(200).json(ListEmployees);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -11,12 +11,12 @@ const getAllEmployees = async (req, res) => {
 
 const getSingleEmployee = async (req, res) => {
   try {
-    const { id: EmployeeID } = req.params;
-    const singleEmployee = await Client.findOne({ _id: EmployeeID });
+    const { id: id } = req.params;
+    const singleEmployee = await Client.findOne({ _id: id });
     if (!singleEmployee) {
       res.send("no employee with id");
     }
-    res.status(200).json( singleEmployee );
+    res.status(200).json(singleEmployee);
   } catch (err) {
     res.send(err);
   }
@@ -37,34 +37,31 @@ const createEmployee = async (req, res) => {
 
 const updateEmployee = async (req, res) => {
   try {
-    const { id: EmployeeId } = req.params;
-    const employee = await Client.findOneAndUpdate({ _id: EmployeeId });
-    employee.name = req.body.name;
-    employee.designation = req.body.designation;
+    const { id: id } = req.params;
 
-    const result = await employee.save();
+    const employee = await Client.findOneAndUpdate({ _id: id }, {name: req.body.name,designation: req.body.designation});
+
     if (!employee) {
-      res.send("no employee with id");
+      res.send("no employee with this id");
     }
-    res.status(200).json( result );
+
+    res.status(200).json(employee);
   } catch (err) {
     console.log(err);
   }
 };
 
 const deleteEmployee = async (req, res) => {
-  try{
-    const { id: EmployeeID } = req.params;
-    const employee = await Client.findOneAndDelete({ _id: EmployeeID });
+  try {
+    const { id: id } = req.params;
+    const employee = await Client.findOneAndDelete({ _id: id });
     if (!employee) {
       res.send("no employee with id");
     }
-    res.status(200).json(employee );
-  }
-  catch (err) {
+    res.status(200).json(employee);
+  } catch (err) {
     console.log(err);
   }
- 
 };
 
 module.exports = {
